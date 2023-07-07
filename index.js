@@ -5,7 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const firebase = require('firebase/app');
 const firebaseConfig = require('./config/firebase')
-
+const {PORT}  = require('./config');
 firebase.initializeApp(firebaseConfig);
 const app = express();
 
@@ -21,6 +21,6 @@ app.use('/login', require('./routes/login'));
 
 app.use('/uploads', express.static(path.resolve('uploads')));
 
-app.listen(config.port, ()=>{
+app.listen(PORT, ()=>{
     console.log('La API esta corriendo en el puerto 4000')
 })
