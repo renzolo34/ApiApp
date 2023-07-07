@@ -1,7 +1,11 @@
-const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('proyecto', 'root', '', {
-  host: 'localhost',
+const { Sequelize } = require('sequelize');
+const {DB_HOST, 
+  DB_PORT, 
+  DB_DATABASE, 
+  DB_USER, DB_PASSWORD}  = require('../config');
+const sequelize = new Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
+  host: DB_HOST, port: DB_PORT,
   dialect: 'mysql'
 });
 
