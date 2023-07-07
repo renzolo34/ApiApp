@@ -1,7 +1,6 @@
 //require('dotenv').config();
 const express = require('express');
 const config = require('./config/global');
-const db = require('./config/db');
 const cors = require('cors');
 const path = require('path');
 const firebase = require('firebase/app');
