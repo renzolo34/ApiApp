@@ -70,7 +70,7 @@ exports.postComidas = async (req, res) => {
 
       const { nombre, categoria, precio } = req.body;
       const fileName = req.file.originalname;
-      const fileUrl = `http://localhost:4000/uploads/${req.file.originalname}`;
+      const fileUrl = `https://apiapp-production.up.railway.app/uploads/${req.file.originalname}`;
 
       Comida.create({
         nombre: nombre,
