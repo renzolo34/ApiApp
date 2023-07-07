@@ -22,7 +22,6 @@ app.use('/login', require('./routes/login'));
 
 app.use('/uploads', express.static(path.resolve('uploads')));
 
-
 app.listen(config.port, ()=>{
     console.log('La API esta corriendo en el puerto 4000')
 })

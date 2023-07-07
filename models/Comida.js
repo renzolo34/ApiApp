@@ -2,6 +2,11 @@ const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/db');
 
 const Comida = sequelize.define('Comida', {
+  id:{
+    type : DataTypes.INTEGER.UNSIGNED,
+    primaryKey : true,
+    autoIncrement : true
+  },
   nombre: {
     type: DataTypes.STRING,
     allowNull: false
@@ -29,5 +34,8 @@ module.exports = Comida;
 
 // Importar y configurar las asociaciones después de la definición del modelo
 const Categoria  = require('./Categoria');
+//const Pago = require('./Pagos');
 
 Comida.belongsTo(Categoria, { foreignKey: 'id_categoria' });
+
+//Comida.hasMany(Pago, { foreignKey: 'id' });
