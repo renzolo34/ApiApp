@@ -68,14 +68,14 @@ exports.postComidas = async (req, res) => {
         return res.status(500).send("Error en la carga de archivos");
       }
 
-      const { nombre, categoria, precio } = req.body;
+      const { nombre, id_categoria, precio } = req.body;
       const fileName = req.file.originalname;
-      const fileUrl = `http://localhost:4000/uploads/${req.file.originalname}`;
+      const fileUrl = `https://apiapp-production.up.railway.app/uploads/${req.file.originalname}`;
 
       Comida.create({
         nombre: nombre,
-        id_categoria: categoria,
         precio: precio,
+        id_categoria: id_categoria,
         fileName: fileName,
         fileUrl: fileUrl, 
       })

@@ -39,3 +39,4 @@ const Categoria  = require('./Categoria');
 Comida.belongsTo(Categoria, { foreignKey: 'id_categoria' });
 
 //Comida.hasMany(Pago, { foreignKey: 'id' });
+
