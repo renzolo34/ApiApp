@@ -68,13 +68,13 @@ exports.postComidas = async (req, res) => {
         return res.status(500).send("Error en la carga de archivos");
       }
 
-      const { nombre, categoria, precio } = req.body;
+      const { nombre, id_categoria, precio } = req.body;
       const fileName = req.file.originalname;
       const fileUrl = `https://apiapp-production.up.railway.app/uploads/${req.file.originalname}`;
 
       Comida.create({
         nombre: nombre,
-        id_categoria: categoria,
+        id_categoria: id_categoria,
         precio: precio,
         fileName: fileName,
         fileUrl: fileUrl, 
@@ -98,11 +98,11 @@ exports.postComidas = async (req, res) => {
 exports.actualizarComida = async (req, res) => {
   try {
     const id = req.params.id;
-    const { nombre, categoria, precio } = req.body;
+    const { nombre, id_categoria, precio } = req.body;
     Comida.update(
       {
         nombre: nombre,
-        id_categoria: categoria,
+        id_categoria: id_categoria,
         precio: precio,
       },
       { where: { id: id } }
