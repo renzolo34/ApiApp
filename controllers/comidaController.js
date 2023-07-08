@@ -7,13 +7,13 @@ const Categoria = require("../models/Categoria");
 const verifyJwt = (req, res, next) => {
   const auth = firebaseAuth.getAuth();
   const user = auth.currentUser;
-    if (user) {
-      const uid = user.uid;
-      console.log(uid);
-      next();
-    } else {
-      return res.status(500).send("Error de autenticación");
-    }
+  if (user) {
+    const uid = user.uid;
+    console.log(uid);
+    next();
+  } else {
+    return res.status(500).send("Error de autenticación");
+  }
 };
 
 const uploader = multer({
@@ -27,9 +27,9 @@ exports.getComidas = (req, res) => {
         return res.status(500).send("Error de autenticación");
       } else {
         Comida.findAll({
-          include:{
-            model:Categoria
-          }
+          include: {
+            model: Categoria,
+          },
         }).then((comidas) => {
           console.log(
             "Registros encontrados:",
@@ -77,7 +77,7 @@ exports.postComidas = async (req, res) => {
         id_categoria: id_categoria,
         precio: precio,
         fileName: fileName,
-        fileUrl: fileUrl, 
+        fileUrl: fileUrl,
       })
         .then((comida) => {
           console.log("Registro creado exitosamente:", comida.toJSON());
@@ -93,7 +93,6 @@ exports.postComidas = async (req, res) => {
     res.status(500).send("Hubo un error");
   }
 };
-   
 
 exports.actualizarComida = async (req, res) => {
   try {
@@ -149,12 +148,12 @@ exports.deleteComida = async (req, res) => {
   }
 };
 
-exports.getComidaUsuario = async (req, res) =>{
-  try{
+exports.getComidaUsuario = async (req, res) => {
+  try {
     Comida.findAll({
-      include:{
-        model:Categoria
-      }
+      include: {
+        model: Categoria,
+      },
     }).then((comidas) => {
       console.log(
         "Registros encontrados:",
@@ -162,11 +161,30 @@ exports.getComidaUsuario = async (req, res) =>{
       );
       res.json(comidas);
     });
-  }catch(error){
+  } catch (error) {
     console.log(error);
     res.status(500).send("Hubo un error al mostrar");
   }
 };
 
+exports.getComidaPorCategoria = async (req, res) => {
+  try {
+
+    const categoria = req.params.id;
 
 
+      Comida.findAll(
+        { where: { id_categoria: categoria } },
+        { include: { model: Categoria } }
+      ).then((result) => {
+        console.log(result);
+        res.json(result);
+      });
+    
+
+
+
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -10,6 +10,7 @@ router.post('/', comidaController.postComidas);
 
 //usar esta ruta para movil porque no tiene verificacion
 router.get('/movil', comidaController.getComidaUsuario);
+router.get('/categoria/:id', comidaController.getComidaPorCategoria);
 
 
 router.put('/:id', comidaController.actualizarComida);
