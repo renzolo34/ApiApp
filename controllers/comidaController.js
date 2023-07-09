@@ -169,22 +169,63 @@ exports.getComidaUsuario = async (req, res) => {
 
 exports.getComidaPorCategoria = async (req, res) => {
   try {
+    const nombreCategoria = req.params.id;
 
-    const categoria = req.params.id;
+    console.log(nombreCategoria);
 
+    const categoria = await Categoria.findOne({ where: { nombre: nombreCategoria } });
 
-      Comida.findAll(
-        { where: { id_categoria: categoria } },
-        { include: { model: Categoria } }
-      ).then((result) => {
-        console.log(result);
-        res.json(result);
-      });
+    console.log(categoria.dataValues.id_categoria);
+
+    if (!categoria) {
+      return res.status(404).json({ mensaje: 'Categoría no encontrada' });
+    }
     
-
-
-
+    if (!categoria.dataValues.id_categoria) {
+      return res.status(400).json({ mensaje: 'ID de categoría inválido' });
+    }
+    
+    Comida.findAll({
+      where: { id_categoria: categoria.dataValues.id_categoria},
+      include: { model: Categoria }
+    }).then((result) => {
+      console.log(result);
+      res.json(result);
+    });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ mensaje: 'Error en el servidor' });
   }
 };
+
+
+exports.getComidaPorCategoriaBody = async (req, res)=>{
+  try{
+    
+    const nombreCategoria = req.body.nombre;
+
+    const categoria = await Categoria.findOne({ where: { nombre: nombreCategoria } });
+
+    console.log(categoria.dataValues.id_categoria);
+
+    if (!categoria) {
+      return res.status(404).json({ mensaje: 'Categoría no encontrada' });
+    }
+    
+    if (!categoria.dataValues.id_categoria) {
+      return res.status(400).json({ mensaje: 'ID de categoría inválido' });
+    }
+    
+    Comida.findAll({
+      where: { id_categoria: categoria.dataValues.id_categoria},
+      include: { model: Categoria }
+    }).then((result) => {
+      console.log(result);
+      res.json(result);
+    });
+
+
+  }catch(err){
+    console.log(err)
+  }
+}
