@@ -124,6 +124,10 @@ exports.verComida = async (req, res) => {
       } else {
         const id = req.params.id;
         Comida.findOne({ where: { id: id } }).then((comidas) => {
+
+          if(comidas === null){
+            console.log("Resultado vacio")
+          }
           console.log("Registros encontrados:", comidas.dataValues);
           res.json(comidas.dataValues);
         });
@@ -131,7 +135,7 @@ exports.verComida = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Hubo un error");
+    res.status(500).send("Hubo un error"); 
   }
 };
 
