@@ -1,35 +1,44 @@
-// const { DataTypes } = require('sequelize');
-// const { sequelize } = require('../config/db');
+const { DataTypes } = require("sequelize");
+const { sequelize } = require("../config/db");
+const Comida = require("./Comida");
 
-// const Pago = sequelize.define('Pago',{
-//     monto:{
-//         type: DataTypes.DOUBLE,
-//         allowNull: false
-//     },
-//     descripcion:{
-//         type: DataTypes.STRING,
-//         allowNull: false
-//     },
-//     fechaCompra:{
-//         type: DataTypes.DATE,
-//         allowNull: false
-//     },
-//     id_comida:{
-//         type: DataTypes.ARRAY(DataTypes.INTEGER.UNSIGNED),
-//         defaultValue: [],
-//         allowNull: false
-//     },
-//     id_usuario:{
-//         type: DataTypes.INTEGER.UNSIGNED,
-//         allowNull: false
-//     }
-// }, {
-//     timestamps: false // Deshabilitar las columnas 'createdAt' y 'updatedAt'
-//   });
+const Pago = sequelize.define(
+  "Pago",
+  {
+    id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    monto: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+    },
+    fechaCompra: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false,
+    },
+    nombre_usuario: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    correo_usuario: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    comida: { 
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
 
-
-// module.exports = Pago;
+module.exports = Pago;
 
 // const Comida = require('./Comida');
-
-// Pago.belongsTo(Comida, {foreignKey:'id_comida'});
+// // Establece la relación muchos a muchos con Comida a través de PagoComida
+// Pago.belongsToMany(Comida, { through: 'PagoComida'});

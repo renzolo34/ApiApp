@@ -34,3 +34,4 @@ sequelize.sync({ force: false }) // Utiliza { force: true } si quieres eliminar 
 module.exports = {
    sequelize
 };
+ 
