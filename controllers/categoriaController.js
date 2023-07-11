@@ -79,3 +79,41 @@ exports.getCategoriaUsuario = async (req, res) =>{
     res.status(500).send("Hubo un error al mostrar");
   };
 };
+exports.getCategoriaId = async (req,res) =>{
+  try{
+    const id = req.params.id;
+        Categoria.findOne({ where: { id_categoria: id } }).then((categorias) => {
+
+          if(comidas === null){
+            console.log("Resultado vacio")
+          }
+          console.log("Registro encontrado:", categorias.dataValues);
+          res.json(categorias.dataValues);
+        });
+  }catch(err){
+    console.log(err);
+    res.status(500).send("Hubo un error"); 
+  }
+};
+
+exports.actualizarCategoria = async (req,res) =>{
+  try{
+
+    const id = req.params.id;
+
+    const { nombre } = req.body;
+
+    Categoria.update(
+      {
+        nombre:nombre
+      },
+      { where: { id_categoria:id } }
+    ).then((result) => {
+      console.log("Registros actualizados:", result[0]);
+      res.json(result);
+    });
+  }catch(err){
+    console.log(err);
+    res.status(500).send("Hubo un error");
+  }
+};
